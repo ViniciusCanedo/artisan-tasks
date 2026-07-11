@@ -17,9 +17,11 @@ const props = withDefaults(defineProps<Props>(), {
   error: '',
   placeholder: '',
   disabled: false,
-  type: 'text',
-  id: () => `input-${Math.random().toString(36).substr(2, 9)}`
+  type: 'text'
 })
+
+const defaultId = useId()
+const inputId = computed(() => props.id || defaultId)
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void
@@ -41,11 +43,11 @@ const inputClasses = computed(() => {
 
 <template>
   <div class="flex flex-col gap-1 w-full text-left">
-    <label v-if="label" :for="id" class="font-serif text-sm font-semibold text-editorial-dark">
+    <label v-if="label" :for="inputId" class="font-serif text-sm font-semibold text-editorial-dark">
       {{ label }}
     </label>
     <input
-      :id="id"
+      :id="inputId"
       :type="type"
       :value="modelValue"
       :placeholder="placeholder"

@@ -17,9 +17,11 @@ const props = withDefaults(defineProps<Props>(), {
   error: '',
   placeholder: '',
   disabled: false,
-  rows: 3,
-  id: () => `textarea-${Math.random().toString(36).substr(2, 9)}`
+  rows: 3
 })
+
+const defaultId = useId()
+const textareaId = computed(() => props.id || defaultId)
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string): void
@@ -41,11 +43,15 @@ const textareaClasses = computed(() => {
 
 <template>
   <div class="flex flex-col gap-1 w-full text-left">
-    <label v-if="label" :for="id" class="font-serif text-sm font-semibold text-editorial-dark">
+    <label
+      v-if="label"
+      :for="textareaId"
+      class="font-serif text-sm font-semibold text-editorial-dark"
+    >
       {{ label }}
     </label>
     <textarea
-      :id="id"
+      :id="textareaId"
       :value="modelValue"
       :placeholder="placeholder"
       :disabled="disabled"

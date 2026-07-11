@@ -21,9 +21,11 @@ const props = withDefaults(defineProps<Props>(), {
   label: '',
   error: '',
   placeholder: '',
-  disabled: false,
-  id: () => `select-${Math.random().toString(36).substr(2, 9)}`
+  disabled: false
 })
+
+const defaultId = useId()
+const selectId = computed(() => props.id || defaultId)
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string | number): void
@@ -54,12 +56,16 @@ const selectClasses = computed(() => {
 
 <template>
   <div class="flex flex-col gap-1 w-full text-left relative">
-    <label v-if="label" :for="id" class="font-serif text-sm font-semibold text-editorial-dark">
+    <label
+      v-if="label"
+      :for="selectId"
+      class="font-serif text-sm font-semibold text-editorial-dark"
+    >
       {{ label }}
     </label>
     <div class="relative">
       <select
-        :id="id"
+        :id="selectId"
         :value="modelValue"
         :disabled="disabled"
         :class="selectClasses"

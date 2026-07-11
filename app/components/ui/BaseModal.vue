@@ -32,6 +32,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 watch(
   () => props.isOpen,
   (open) => {
+    if (typeof window === 'undefined') return
     if (open) {
       document.addEventListener('keydown', handleKeyDown)
       document.body.style.overflow = 'hidden'
@@ -44,6 +45,7 @@ watch(
 )
 
 onBeforeUnmount(() => {
+  if (typeof window === 'undefined') return
   document.removeEventListener('keydown', handleKeyDown)
   document.body.style.overflow = ''
 })
