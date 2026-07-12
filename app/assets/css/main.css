@@ -1,3 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #f9f8f6;
+    color: #2d2d2d;
+    @apply font-sans antialiased text-charcoal;
+  }
+}
+
+/* Custom scrollbar for Kanban */
+.kanban-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.kanban-scroll::-webkit-scrollbar-track {
+  background: #eae6d7;
+}
+.kanban-scroll::-webkit-scrollbar-thumb {
+  background: #b99b85;
+  border-radius: 4px;
+}
+
+/* Reveal effects for GSAP entry */
+.reveal {
+  opacity: 0;
+  transform: translateY(15px);
+}
